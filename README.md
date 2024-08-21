@@ -1,0 +1,1 @@
+Trabalho avaliativo da matéria de Programação II, que tem como objetivo desenvolver o Jogo da Velha utilizando linguagem C.
