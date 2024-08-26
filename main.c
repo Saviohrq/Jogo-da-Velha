@@ -60,6 +60,7 @@ void main(){
 				break;
 			case '2':
 				//chamar função jogar1vs1
+				
 				break;
 			default:
 				printf("OPCAO INVALIDA");
