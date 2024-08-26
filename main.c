@@ -3,8 +3,9 @@
 #include <string.h>
 
 typedef struct{
-	char matriz[3][3]	;
+	char matriz[3][3];
 	int numJogadas;
+	int linha,coluna;
 }Tabuleiro;
 
 void iniciar(Tabuleiro *jogo){
@@ -33,10 +34,43 @@ void imprimir(Tabuleiro *jogo){
     }
 }
 
+void jogar1vs1(Tabuleiro *jogo){
+	printf("---------- JOGO DA IDOSA DOS CRIA ----------\n\n");
+	int count = 0;
+	while(count<9){
+		imprimir(jogo);
+	
+		printf("\n---------- JOGADOR X ----------\n");
+		printf("LINHA: ");
+		scanf("%d",&jogo->linha);
+	   	printf("COLUNA: ");
+		scanf("%d",&jogo->coluna);		
+		//verifica se é vazio
+		jogo->matriz[linha][coluna] = 'X';
+		
+		if(count >= 4){
+			//chama a função verificar
+		}
+		
+		system("cls");
+		imprimir(jogo);
+	
+		printf("\n---------- JOGADOR X ----------\n");
+		printf("LINHA: ");
+		scanf("%d",&jogo->linha);
+	   	printf("COLUNA: ");
+		scanf("%d",&jogo->coluna);
+		//verifica se é vazio
+		jogo->matriz[linha][coluna] = 'O';
+		
+	}
+	
+	
+}
+
 void main(){
 	Tabuleiro jogo;
 	
-	int linha,coluna;
 	char controle;
 	iniciar(&jogo);
 
@@ -57,10 +91,11 @@ void main(){
 			switch(controle){
 			case '1':
 				//chamar função jogarCOM
+				
 				break;
 			case '2':
 				//chamar função jogar1vs1
-				
+				jogar1vs1(&jogo);
 				break;
 			default:
 				printf("OPCAO INVALIDA");
@@ -71,6 +106,7 @@ void main(){
 		
 		
 	}
+	
 	
 	
 }
