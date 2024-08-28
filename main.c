@@ -38,22 +38,20 @@ void pvp(Tabuleiro *jogo){
     int y;
     int jgds;
 
-    while(jgds <3){
+    while(jgds < 9){
 
         system("cls");
         printf("-------- FACA SUA JOGADA ------\n\n");
         printf("LINHA: ");
-        scanf("%c\n", &x);
+        scanf("%d\n", &x);
         printf("COLUNA: ");
-        scanf("%c\n", &y);
+        scanf("%d\n", &y);
         jgds++;
+        jogo->matriz[x][y] = 'x';
+        imprimir(&jogo);
+        system("pause");
 
-    }//fim while
-    system("cls");
-    printf("---------- JOGO DA IDOSA DOS CRIA ----------\n\n");
-    imprimir(jogo);
-    printf("\nDEU IDOSA DOS CRIAS\n\n");
-    system("pause");
+    }
 
 }//fim PVP
 
@@ -83,8 +81,7 @@ void main(){
 				//chamar função jogarCOM
 				break;
 			case '2':
-			    pvp(&jogo);
-
+                pvp(&jogo);
 				break;
 			default:
 				printf("OPCAO INVALIDA");
