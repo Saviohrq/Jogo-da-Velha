@@ -33,24 +33,48 @@ void imprimir(Tabuleiro *jogo){
     }
 }
 
+void pvp(Tabuleiro *jogo){
+    int x;
+    int y;
+    int jgds;
+
+    while(jgds <3){
+
+        system("cls");
+        printf("-------- FACA SUA JOGADA ------\n\n");
+        printf("LINHA: ");
+        scanf("%c\n", &x);
+        printf("COLUNA: ");
+        scanf("%c\n", &y);
+        jgds++;
+
+    }//fim while
+    system("cls");
+    printf("---------- JOGO DA IDOSA DOS CRIA ----------\n\n");
+    imprimir(jogo);
+    printf("\nDEU IDOSA DOS CRIAS\n\n");
+    system("pause");
+
+}//fim PVP
+
 void main(){
 	Tabuleiro jogo;
-	
+
 	int linha,coluna;
 	char controle;
 	iniciar(&jogo);
 
 	while(1){
-		
+
 		system("cls");
 		printf("---------- JOGO DA IDOSA DOS CRIA ----------\n\n");
-		imprimir(&jogo); 
+		imprimir(&jogo);
 		printf("\n1 - JOGAR 1 vs COM");
 		printf("\n2 - JOGAR 1 vs 1");
 		printf("\n0 - SAIR");
 		printf("\n>>> ");
 		scanf("%c", &controle);
-		
+
 		if(controle == '0'){
 			break;
 		}else{
@@ -59,25 +83,25 @@ void main(){
 				//chamar função jogarCOM
 				break;
 			case '2':
-				//chamar função jogar1vs1
-				
+			    pvp(&jogo);
+
 				break;
 			default:
 				printf("OPCAO INVALIDA");
 				break;
 			}
 		}
-		
-		
-		
+
+
+
 	}
-	
-	
-}
+
+
+}// fim da main
 
 
 
-//Funçoes: 
+//Funçoes:
 /*
 iniciar: preenche a matriz com ' '				OK
 imprimir: imprime o tabuleiro					OK
@@ -85,11 +109,12 @@ imprimir: imprime o tabuleiro					OK
 jogarCOM: função que pegue as opções do jogador e sortei as jogadas do computador
 jogar1vs1: função que pega as jogadas dos dois jogadores
 
-verificar: verifica se há ganhadores			
+verificar: verifica se há ganhadores
 
 Temos que verificar tambem se o game esta empatado, ou seja, ja foi o maximo de jogadas e mesmo assim não ha ganhador
 Podemos controlar a quantidade de jogadas, assim so verifica se há ganhador a partir da 5° jogada
 
+// \t --> printa o espaço de um TAB\
 
 
 
