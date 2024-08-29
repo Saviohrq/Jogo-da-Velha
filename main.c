@@ -5,20 +5,23 @@
 typedef struct{
 	char matriz[3][3];
 	int numJogadas;
-	int linha,coluna;
+	int jogoAtivo;
+	
 }Tabuleiro;
 
 void iniciar(Tabuleiro *jogo){
 	int i,j;
+	jogo->jogoAtivo = 1;
 	for(i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
             jogo->matriz[i][j] = ' ';
         }
     }
-}
+}//fim do iniciar
 
 void imprimir(Tabuleiro *jogo){
 	int i,j;
+	printf("---------- JOGO DA IDOSA DOS CRIA ----------\n\n");
 	for (i= 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
         	printf(" %c ", jogo->matriz[i][j]);
@@ -32,88 +35,141 @@ void imprimir(Tabuleiro *jogo){
 		}
 		printf("\n");
     }
-}
+}//fim do imprimir
 
-void jogar1vs1(Tabuleiro *jogo){
-	printf("---------- JOGO DA IDOSA DOS CRIA ----------\n\n");
-	int count = 0;
-	while(count<9){
-		imprimir(jogo);
-	
-		printf("\n---------- JOGADOR X ----------\n");
-		printf("LINHA: ");
-		scanf("%d",&jogo->linha);
-	   	printf("COLUNA: ");
-		scanf("%d",&jogo->coluna);		
-		//verifica se é vazio
-		jogo->matriz[linha][coluna] = 'X';
-		
-		if(count >= 4){
-			//chama a função verificar
+void jogada(Tabuleiro *jogo,char nome){
+	int x;
+    int y;
+	while(1){
+			imprimir(jogo);
+			system("cls");
+			printf("------ Jogador %c -----\n",nome);
+			fflush(stdin);
+			printf("\nLINHA: ");
+			scanf("%d", &x);
+        	printf("\nCOLUNA: ");
+        	scanf("%d", &y);
+        	
+        	//Validando jogada
+        	if(jogo->matriz[x][y] == ' '){
+				jogo->matriz[x][y] = nome;
+				imprimir(jogo);
+				system("pause");
+				break;
+			}
+			else{
+				printf("Espaco ja preenchido, escolha outro lugar!\n");
+				system("pause");
+			}
 		}
-		
-		system("cls");
-		imprimir(jogo);
+}//Fim do jogada
+void verificarGanhador(Tabuleiro *jogo,char nome,int numJgds){
 	
-		printf("\n---------- JOGADOR X ----------\n");
-		printf("LINHA: ");
-		scanf("%d",&jogo->linha);
-	   	printf("COLUNA: ");
-		scanf("%d",&jogo->coluna);
-		//verifica se é vazio
-		jogo->matriz[linha][coluna] = 'O';
-		
+	int i,j;
+	
+	//Verificar linhas e colunas
+	for(i = 0; i < 3; i++) {
+    	if((jogo->matriz[i][0]==nome && jogo->matriz[i][1]==nome && jogo->matriz[i][2] == nome)||
+		(jogo->matriz[0][i]==nome && jogo->matriz[1][i]==nome && jogo->matriz[2][i] == nome)){
+			printf("Jogador %c ganhou!",nome);
+			imprimir(jogo);
+			jogo->jogoAtivo = 0;
+			system("pause");
+			return;
+		}
+	}//Fim do For
+	
+	//Verificar diagonal
+	if((jogo->matriz[0][0]==nome && jogo->matriz[1][1]==nome && jogo->matriz[2][2]==nome) || 
+ 	 (jogo->matriz[0][2]==nome && jogo->matriz[1][1]==nome && jogo->matriz[2][0]==nome)){
+ 	 	
+	  	printf("Jogador %c ganhou!",nome);
+		imprimir(jogo);
+		jogo->jogoAtivo = 0;
+		system("pause");
+		return;
 	}
 	
+	//Verificar empate
+	if(numJgds == 9){
+		printf("DEU IDOSA (EMPATE)!\n");
+		imprimir(&jogo);
+		jogo->jogoAtivo = 0;
+		system("pause");
+		return;
+	}
+
 	
-}
+	
+}//Fim do verificarGanhador
+
 
 void main(){
 	Tabuleiro jogo;
+
+	int controle;
+	int numJogadas;
 	
-	char controle;
-	iniciar(&jogo);
 
 	while(1){
 		
+		iniciar(&jogo);
 		system("cls");
-		printf("---------- JOGO DA IDOSA DOS CRIA ----------\n\n");
-		imprimir(&jogo); 
-		printf("\n1 - JOGAR 1 vs COM");
+		fflush(stdin);
+		imprimir(&jogo);
+		
+		printf("\n1 - JOGAR 1 vs 1");
 		printf("\n2 - JOGAR 1 vs 1");
 		printf("\n0 - SAIR");
 		printf("\n>>> ");
-		scanf("%c", &controle);
+		scanf("%d", &controle);
 		
-		if(controle == '0'){
+		if(controle == 0){
 			break;
 		}else{
 			switch(controle){
-			case '1':
-				//chamar função jogarCOM
-				
+			case 1:
+				numJogadas = 1;
+				while(1){
+					jogada(&jogo,'X');
+					numJogadas++;
+					if(numJogadas >= 4){
+						verificarGanhador(&jogo,'x',numJogadas);
+						if(jogo.jogoAtivo==0){
+							break;
+						}
+					}
+					jogada(&jogo,'O');
+					numJogadas++;
+					if(numJogadas >= 4){
+						verificarGanhador(&jogo,'O',numJogadas);
+						if(jogo.jogoAtivo==0){
+							break;
+						}
+					}
+					
+				}
 				break;
-			case '2':
-				//chamar função jogar1vs1
-				jogar1vs1(&jogo);
+			case 2:
+				
 				break;
 			default:
 				printf("OPCAO INVALIDA");
+				system("pause");
 				break;
 			}
 		}
-		
-		
-		
+
+
+
 	}
-	
-	
-	
-}
+
+
+}// Fim da main
 
 
 
-//Funçoes: 
+//Funçoes:
 /*
 iniciar: preenche a matriz com ' '				OK
 imprimir: imprime o tabuleiro					OK
@@ -121,11 +177,12 @@ imprimir: imprime o tabuleiro					OK
 jogarCOM: função que pegue as opções do jogador e sortei as jogadas do computador
 jogar1vs1: função que pega as jogadas dos dois jogadores
 
-verificar: verifica se há ganhadores			
+verificar: verifica se há ganhadores
 
 Temos que verificar tambem se o game esta empatado, ou seja, ja foi o maximo de jogadas e mesmo assim não ha ganhador
 Podemos controlar a quantidade de jogadas, assim so verifica se há ganhador a partir da 5° jogada
 
+// \t --> printa o espaço de um TAB\
 
 
 
