@@ -6,7 +6,7 @@ typedef struct{
 	char matriz[3][3];
 	int numJogadas;
 	int jogoAtivo;
-	
+
 }Tabuleiro;
 
 void iniciar(Tabuleiro *jogo){
@@ -49,7 +49,7 @@ void jogada(Tabuleiro *jogo,char nome){
 			scanf("%d", &x);
         	printf("\nCOLUNA: ");
         	scanf("%d", &y);
-        	
+
         	//Validando jogada
         	if(jogo->matriz[x][y] == ' '){
 				jogo->matriz[x][y] = nome;
@@ -64,43 +64,47 @@ void jogada(Tabuleiro *jogo,char nome){
 		}
 }//Fim do jogada
 void verificarGanhador(Tabuleiro *jogo,char nome,int numJgds){
-	
+
 	int i,j;
-	
+
 	//Verificar linhas e colunas
 	for(i = 0; i < 3; i++) {
     	if((jogo->matriz[i][0]==nome && jogo->matriz[i][1]==nome && jogo->matriz[i][2] == nome)||
 		(jogo->matriz[0][i]==nome && jogo->matriz[1][i]==nome && jogo->matriz[2][i] == nome)){
-			printf("Jogador %c ganhou!",nome);
+
+			system("cls");
 			imprimir(jogo);
+			printf("JOGADOR %c GANHOU!\n\n",nome);
 			jogo->jogoAtivo = 0;
 			system("pause");
 			return;
 		}
 	}//Fim do For
-	
+
 	//Verificar diagonal
-	if((jogo->matriz[0][0]==nome && jogo->matriz[1][1]==nome && jogo->matriz[2][2]==nome) || 
+	if((jogo->matriz[0][0]==nome && jogo->matriz[1][1]==nome && jogo->matriz[2][2]==nome) ||
  	 (jogo->matriz[0][2]==nome && jogo->matriz[1][1]==nome && jogo->matriz[2][0]==nome)){
- 	 	
-	  	printf("Jogador %c ganhou!",nome);
+
+        system("cls");
 		imprimir(jogo);
-		jogo->jogoAtivo = 0;
-		system("pause");
-		return;
-	}
-	
-	//Verificar empate
-	if(numJgds == 9){
-		printf("DEU IDOSA (EMPATE)!\n");
-		imprimir(&jogo);
+	  	printf("JOGADOR %c GANHOU!\n\n",nome);
 		jogo->jogoAtivo = 0;
 		system("pause");
 		return;
 	}
 
-	
-	
+	//Verificar empate
+	if(numJgds > 9){
+        system("cls");
+		imprimir(jogo);
+		printf("DEU IDOSA (EMPATE)!\n\n");
+		jogo->jogoAtivo = 0;
+		system("pause");
+		return;
+	}
+
+
+
 }//Fim do verificarGanhador
 
 
@@ -109,21 +113,21 @@ void main(){
 
 	int controle;
 	int numJogadas;
-	
+
 
 	while(1){
-		
+
 		iniciar(&jogo);
 		system("cls");
 		fflush(stdin);
 		imprimir(&jogo);
-		
+
 		printf("\n1 - JOGAR 1 vs 1");
 		printf("\n2 - JOGAR 1 vs 1");
 		printf("\n0 - SAIR");
 		printf("\n>>> ");
 		scanf("%d", &controle);
-		
+
 		if(controle == 0){
 			break;
 		}else{
@@ -134,7 +138,7 @@ void main(){
 					jogada(&jogo,'X');
 					numJogadas++;
 					if(numJogadas >= 4){
-						verificarGanhador(&jogo,'x',numJogadas);
+						verificarGanhador(&jogo,'X',numJogadas);
 						if(jogo.jogoAtivo==0){
 							break;
 						}
@@ -147,11 +151,11 @@ void main(){
 							break;
 						}
 					}
-					
+
 				}
 				break;
 			case 2:
-				
+
 				break;
 			default:
 				printf("OPCAO INVALIDA");
