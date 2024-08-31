@@ -175,15 +175,15 @@ void main(){
 
 //Funçoes:
 /*
-iniciar: preenche a matriz com ' '				OK
-imprimir: imprime o tabuleiro					OK
+iniciar: preenche a matriz com ' ' --> OK
+imprimir: imprime o tabuleiro --> OK
 
 jogarCOM: função que pegue as opções do jogador e sortei as jogadas do computador
 jogar1vs1: função que pega as jogadas dos dois jogadores
 
-verificar: verifica se há ganhadores
+verificar: verifica se há ganhadores --> OK
 
-Temos que verificar tambem se o game esta empatado, ou seja, ja foi o maximo de jogadas e mesmo assim não ha ganhador
+Temos que verificar tambem se o game esta empatado, ou seja, ja foi o maximo de jogadas e mesmo assim não ha ganhador --> OK
 Podemos controlar a quantidade de jogadas, assim so verifica se há ganhador a partir da 5° jogada
 
 // \t --> printa o espaço de um TAB\
