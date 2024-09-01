@@ -27,7 +27,9 @@ void iniciar(Tabuleiro *jogo){
 void imprimir(Tabuleiro *jogo){
 	int i,j;
 	printf("---------- JOGO DA IDOSA ----------\n\n");
+	printf("    1   2   3\n");
 	for (i= 0; i < 3; i++) {
+		printf(" %d ", i + 1);
         for (j = 0; j < 3; j++) {
         	printf(" %c ", jogo->matriz[i][j]);
             if(j<2){
@@ -36,7 +38,7 @@ void imprimir(Tabuleiro *jogo){
         }
         printf("\n");
         if(i<2){
-			printf("-----------");
+			printf("   -----------");
 		}
 		printf("\n");
     }
@@ -61,10 +63,14 @@ void jogada(Tabuleiro *jogo,char nome){
 			imprimir(jogo);
 			printf("------ Jogador %c -----\n",nome);
 			fflush(stdin);
-			printf("\nLINHA: ");
+			printf("\nLINHA (1-3): ");
 			scanf("%d", &x);
-        	printf("\nCOLUNA: ");
+        	printf("\nCOLUNA (1-3):");
         	scanf("%d", &y);
+        	
+        	x--; 
+			y--;
+			
         	
         	//Validando jogada
         	if(x >= 0 && x < 3 && y >= 0 && y < 3 && jogo->matriz[x][y] == ' '){
@@ -79,6 +85,19 @@ void jogada(Tabuleiro *jogo,char nome){
 			}
 		}
 }//Fim do jogada
+
+void jogadaComputador(Tabuleiro *jogo, char nome) {
+	
+    int x, y;
+    do {
+        x = rand() % 3;
+        y = rand() % 3;
+    } while (jogo->matriz[x][y] != ' ');
+
+    jogo->matriz[x][y] = nome;
+    jogo->numJogadas++;
+    
+} //Fim do jogadaComputador
 
 void verificarGanhador(Tabuleiro *jogo,char nome){
 	
@@ -169,8 +188,10 @@ void main(){
 		if (controle == 0) {
             break;
         } else if (controle == 1) {
-            int partidas = 0;  
-            while (partidas < 4 || (jogo.vitoriasX == jogo.vitoriasO && partidas == 4)) {  
+            int partidas = 0; 
+            jogo.vitoriasX = 0;
+			jogo.vitoriasO = 0;
+            while ((jogo.vitoriasX < 3 && jogo.vitoriasO < 3) || (jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
                 iniciar(&jogo);
                 while(1) {
                 	
@@ -190,16 +211,59 @@ void main(){
             }
 
             // Exibir o resultado final
+            system("cls");
             if (jogo.vitoriasX > jogo.vitoriasO) {  
-                printf("Jogador X venceu o melhor de 4!\n");
+                printf("Jogador X venceu o jogo!\n");
+                
             } else if (jogo.vitoriasO > jogo.vitoriasX) {  
-                printf("Jogador O venceu o melhor de 4!\n");
+                printf("Jogador O venceu o jogo!\n");
+                
             } else {  
                 printf("O jogo terminou empatado após a rodada de desempate!\n");
+                
+            }
+			exibirPlacar(&jogo);
+            system("pause");
+        }else if(controle == 2){
+        	
+			int partidas = 0;  
+			jogo.vitoriasX = 0;
+			jogo.vitoriasO = 0;
+            while ((jogo.vitoriasX < 3 && jogo.vitoriasO < 3) || (jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
+                iniciar(&jogo);
+                while(1) {
+                	
+                    jogada(&jogo, 'X');
+                    verificarGanhador(&jogo,'X');
+                    if (jogo.jogoAtivo == 0){
+						break;
+					}
+					
+                    jogadaComputador(&jogo, 'O');
+                    verificarGanhador(&jogo,'O');
+                    if (jogo.jogoAtivo == 0){
+						break;
+					}
+                }
+                partidas++; 
             }
 
+            // Exibir o resultado final
+            system("cls");
+            if (jogo.vitoriasX > jogo.vitoriasO) {  
+                printf("Jogador X venceu o jogo!\n");
+                
+            } else if (jogo.vitoriasO > jogo.vitoriasX) {  
+                printf("Jogador O venceu o jogo!\n");
+                
+            } else {  
+                printf("O jogo terminou empatado após a rodada de desempate!\n");
+                
+            }
+			exibirPlacar(&jogo);
             system("pause");
-        } else {
+            
+		} else {
             printf("OPÇÃO INVÁLIDA!\n");
             system("pause");
         }
