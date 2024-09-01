@@ -169,8 +169,6 @@ void main(){
 	Tabuleiro jogo;
 
 	int controle;
-	jogo.vitoriasX = 0;  
-    jogo.vitoriasO = 0;
 
 	while(1){
 		
@@ -188,9 +186,11 @@ void main(){
 		if (controle == 0) {
             break;
         } else if (controle == 1) {
+        	
             int partidas = 0; 
             jogo.vitoriasX = 0;
 			jogo.vitoriasO = 0;
+			
             while ((jogo.vitoriasX < 3 && jogo.vitoriasO < 3) || (jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
                 iniciar(&jogo);
                 while(1) {
@@ -229,6 +229,7 @@ void main(){
 			int partidas = 0;  
 			jogo.vitoriasX = 0;
 			jogo.vitoriasO = 0;
+			
             while ((jogo.vitoriasX < 3 && jogo.vitoriasO < 3) || (jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
                 iniciar(&jogo);
                 while(1) {
