@@ -194,7 +194,7 @@ void main(){
 			jogo.vitoriasO = 0;
 			jogo.empates = 0;
 			
-            while (jogo.vitoriasX+jogo.vitoriasO+jogo.empates < 4) {  
+            while ((jogo.vitoriasX+jogo.vitoriasO+jogo.empates < 4)||(jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
                 iniciar(&jogo);
                 while(1) {
                 	
@@ -210,6 +210,9 @@ void main(){
 						break;
 					}
                 }
+                if(jogo.vitoriasX == 3 || jogo.vitoriasO == 3){
+					break;
+				}
                  
             }
 
@@ -233,7 +236,7 @@ void main(){
 			jogo.vitoriasO = 0;
 			jogo.empates = 0;
 			
-            while (jogo.vitoriasX+jogo.vitoriasO+jogo.empates < 4) {  
+            while ((jogo.vitoriasX+jogo.vitoriasO+jogo.empates < 4)||(jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
                 iniciar(&jogo);
                 while(1) {
                 	
@@ -249,6 +252,10 @@ void main(){
 						break;
 					}
                 }
+                
+                if(jogo.vitoriasX == 3 || jogo.vitoriasO == 3){
+					break;
+				}
 
             }
 
@@ -257,7 +264,7 @@ void main(){
             if (jogo.vitoriasX > jogo.vitoriasO) {  
                 printf("Jogador X venceu o jogo!\n");
                 
-            } else if (jogo.vitoriasO > jogo.vitoriasX) {  
+            } else if ((jogo.vitoriasO > jogo.vitoriasX)) {  
                 printf("Jogador O venceu o jogo!\n");
                 
             } else {  
