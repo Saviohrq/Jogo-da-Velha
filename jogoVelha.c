@@ -8,6 +8,7 @@ typedef struct{
 	int jogoAtivo ; // 1 para ativo e 0 para jogo finalizado
 	int vitoriasX ;
     int vitoriasO ;
+    int empates ;
     
 }Tabuleiro;
 
@@ -49,6 +50,7 @@ void exibirPlacar(Tabuleiro *jogo) {
     printf("\n------------PLACAR------------\n");
     printf("Jogador X: %d vitorias\n", jogo->vitoriasX);
     printf("Jogador O: %d vitorias\n", jogo->vitoriasO);
+	printf("Empates: %d \n", jogo->empates);
     printf("------------------------------\n\n");
     
 }//Fim do exibirPlacar
@@ -153,6 +155,7 @@ void verificarGanhador(Tabuleiro *jogo,char nome){
 		
 		imprimir(jogo);
 		printf("DEU EMPATE!\n");
+		jogo->empates++;
 		jogo->jogoAtivo = 0;
 		
 		system("pause");
@@ -187,11 +190,11 @@ void main(){
             break;
         } else if (controle == 1) {
         	
-            int partidas = 0; 
             jogo.vitoriasX = 0;
 			jogo.vitoriasO = 0;
+			jogo.empates = 0;
 			
-            while ((jogo.vitoriasX < 3 && jogo.vitoriasO < 3) || (jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
+            while (jogo.vitoriasX+jogo.vitoriasO+jogo.empates < 4) {  
                 iniciar(&jogo);
                 while(1) {
                 	
@@ -207,7 +210,7 @@ void main(){
 						break;
 					}
                 }
-                partidas++; 
+                 
             }
 
             // Exibir o resultado final
@@ -226,11 +229,11 @@ void main(){
             system("pause");
         }else if(controle == 2){
         	
-			int partidas = 0;  
 			jogo.vitoriasX = 0;
 			jogo.vitoriasO = 0;
+			jogo.empates = 0;
 			
-            while ((jogo.vitoriasX < 3 && jogo.vitoriasO < 3) || (jogo.vitoriasX == 2 && jogo.vitoriasO == 2)) {  
+            while (jogo.vitoriasX+jogo.vitoriasO+jogo.empates < 4) {  
                 iniciar(&jogo);
                 while(1) {
                 	
@@ -246,7 +249,7 @@ void main(){
 						break;
 					}
                 }
-                partidas++; 
+
             }
 
             // Exibir o resultado final
